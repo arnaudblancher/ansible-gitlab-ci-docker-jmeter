@@ -1,0 +1,9 @@
+# variables manuelles à destination de tous les serveurs de l'inventory 'docker'
+
+---
+
+# alias dns pour les conteneurs docker (spécifique à la creation des dockers)
+docker_provisionning_aliases:
+  ansible_tp_www01:
+    - "app1.local"
+    - "app2.local"

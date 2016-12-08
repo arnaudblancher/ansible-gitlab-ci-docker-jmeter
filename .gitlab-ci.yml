@@ -1,0 +1,113 @@
+---
+image: arnaudblancher/docker-ubuntu14-ansible-docker
+
+# ordre des stages (construction de conteneur docker à chaque fois)
+stages:
+- build
+- test
+- deploy
+
+job_test:
+  stage: test
+#  tags:
+#    - runner1
+  script:
+    #  - export
+
+    # Docker qui est déjà dans l'image
+    - service docker start
+    # debug
+    - ps auwx | grep -i 'docker'
+    - for i in $(seq 60); do docker info  && break || sleep 2; done
+
+    # Ansible qui est déjà dans l'image
+    # debug
+    - dpkg-query --list python python-jinja2 python-yaml
+    - ansible-playbook --version
+
+    # System debug
+    - date
+    - uname -a
+    - ls -al
+    - df -h
+
+    # provisionner les dockers correspondant à l'inventaire
+    - sudo ansible-playbook -vvv --user=root -i ./inventory/docker/ ./docker-provisionning.yml
+    # debug
+    - cat /etc/hosts
+    - date
+    - df -h
+
+    # deployer l'ensemble de la plateforme sur les conteneurs docker
+    - ansible-playbook -vvv --user=root -i ./inventory/docker/ prerequis.yml
+    - ansible-playbook -vvv --user=root -i ./inventory/docker/ www.yml
+    # tester avec jmeter
+    # - ansible-playbook -vvv --user=root -i ./inventory/docker/ jmeter_book.yml
+    # tester avec jmeter a partir d'un conteneur ayant deja jmeter (server)
+    - ansible-playbook -vvv --user=root -i ./inventory/docker/ jmeter_book.yml --tags=jmeter_scenarii_copy,jmeter_run_tests
+    # debug
+    - cat /etc/hosts
+    - date
+    - df -h
+
+
+    # supprimmer les conteneurs docker
+    - sudo ansible-playbook -vvv --user=root -i ./inventory/docker/ ./docker-unprovisionning.yml
+    # debug
+    - date
+    - df -h
+
+job_deploy_preprod:
+  stage: deploy
+  # creéra un affichage récapitulatif pour l'environnment 'preprod'
+  environment: preprod
+  # s'applique seulement à la branche git 'preprod"
+  only:
+    - preprod
+  # est exécuté uniquement lorsque le stage précédent réussit
+  when: on_success
+  # pour le debug pas de on_success et un manual à la place
+  # when: manual
+  script:
+
+    ###
+    # clé ssh - cf https://docs.gitlab.com/ee/ci/ssh_keys/README.html#ssh-keys-when-using-the-docker-executor
+    ###
+
+    # Install ssh-agent if not already installed, it is required by Docker.
+    # (change apt-get to yum if you use a CentOS-based image)
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    # Run ssh-agent (inside the build environment)
+    - eval $(ssh-agent -s)
+    # Add the SSH key stored in ANSIBLE_DEPLOY_PRIVATE_KEY variable to the agent store
+    - ssh-add <(echo "$ANSIBLE_DEPLOY_PRIVATE_KEY")
+    # For Docker builds disable host key checking. Be aware that by adding that
+    # you are suspectible to man-in-the-middle attacks.
+    # WARNING: Use this only with the Docker executor, if you use it with shell
+    # you will overwrite your user's SSH config.
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+    # debug
+    - ping -c 3 tp3.dev-arnaud.toshiba.local
+    - ssh root@tp3.dev-arnaud.toshiba.local uname -a
+
+    # déployer vers la preprod
+    - ansible-playbook -vvv --user=root -i ./inventory/preprod/ www.yml
+
+
+
+job_deploy_prod:
+  stage: deploy
+  # creéra un affichage récapitulatif pour l'environnment 'preprod'
+  environment: prod
+  # s'applique seulement à la branche git 'prod"
+  only:
+    - prod
+  # uniquement lorsque le stage précédent réussit
+  when: on_success
+  # n'est pas exécuté automatiquement, il faut cliquer dans l'IHM
+  when: manual
+  script:
+    - ansible-playbook -vvv --user=root -i ./inventory/prod/ www.yml
+

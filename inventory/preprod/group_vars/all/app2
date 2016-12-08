@@ -1,0 +1,7 @@
+# variables manuelles à destination de tous les serveurs de l'inventory 'clevo'
+
+---
+
+# app2
+app2_dns: app2.tp3.dev-arnaud.toshiba.local
+app2_directory: app2.local

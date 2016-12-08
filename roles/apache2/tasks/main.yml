@@ -1,0 +1,11 @@
+---
+# tasks file for apache24
+
+- name: paquets apache et php
+  apt: name={{ item }} state=present update_cache=yes  # {{ item }} mots clé réservé qui vient de la boucle 'with_items'
+  with_items:
+    - libapache2-mod-php5
+
+- name: "assume apache2 is runing"
+  service: name=apache2 state=started
+  when: ansible_virtualization_type is defined and ansible_virtualization_type=="docker"

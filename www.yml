@@ -1,0 +1,15 @@
+# test du playbook:
+# sudo ansible-playbook -C www.yml -i ./inventory/docker/
+# installation en mode debug :
+# sudo ansible-playbook -vvv www.yml -i ./inventory/docker/
+
+---
+- name: "installe les app*"    # nom du "play'
+  hosts: www                # on veux déploier uniquement vers les hosts du groupe wwww
+  gather_facts: true        # récupère les variables d'environnement et système de chaque hosts
+
+  roles:
+    - { role: app1, tags: [app1, application] }
+    - { role: app2, tags: [app2, application] }
+
+  tasks: [] # pas de tasks, la liste est vide

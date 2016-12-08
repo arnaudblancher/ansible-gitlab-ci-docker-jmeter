@@ -1,0 +1,11 @@
+[mysql]
+dock_mysql
+
+[apache]
+dock_apache
+
+[jmeter]
+dock_jmeter
+
+[all:vars]
+ansible_connection=docker

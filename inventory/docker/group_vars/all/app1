@@ -1,0 +1,6 @@
+# variables manuelles à destination de tous les serveurs de l'inventory 'docker'
+
+---
+
+# app1
+app1_dns: app1.local

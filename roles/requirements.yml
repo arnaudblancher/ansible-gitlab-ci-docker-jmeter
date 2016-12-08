@@ -1,0 +1,8 @@
+---
+# importation : ansible-galaxy install -p ./ -r ./requirements.yml
+# reimportation : ansible-galaxy install --force -p ./ -r ./requirements.yml
+
+- src: arnaudblancher.docker_provisionning
+- src: arnaudblancher.docker_unprovisionning
+- src: arnaudblancher.jmeter
+

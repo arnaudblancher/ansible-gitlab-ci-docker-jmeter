@@ -1,0 +1,5 @@
+# pour tester à la main
+# /usr/local/apache-jmeter-2.13/bin/jmeter -p app2-test-get-slash-prop.properties_en_dur -t app2-test-get-slash-prop.jmx &
+
+DNS=app2.tp3.dev-arnaud.toshiba.local
+PORT=80

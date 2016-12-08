@@ -1,0 +1,17 @@
+# simple test de connexion qui ne modifie rien sur les serveurs
+# call
+# ansible-playbook -i inventory/preprod/ test_connexion.yml
+
+---
+
+
+- name: Test
+  hosts: all
+  gather_facts: true
+
+  tasks:
+    - name: "inventory_hostname"
+      debug: msg="{{inventory_hostname}}"
+    - name: "OS"
+      debug: msg="{{ ansible_lsb.id }}{{ ansible_lsb.major_release }}"
+

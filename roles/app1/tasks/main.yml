@@ -1,0 +1,29 @@
+---
+# tasks file for app1
+
+- name: documentroot du vhost app1
+  file: path="/var/www/local/app1.local/htdocs" state=directory mode="0770" owner="www-data" group="www-data"
+
+- name: copie de(s) fichier(s) du site web # eventuellement utiliser un rsync
+  copy: src=.{{ item }} dest={{ item }} mode="0440" owner="www-data" group="www-data"
+  with_items:
+    - "/var/www/local/app1.local/htdocs/index.php"
+
+- name: le vhost app1.local.conf
+  template: src=.{{ item }} dest={{ item }} mode="0644" owner="root" group="root"
+  with_items:
+    -  "/etc/apache2/sites-available/app1.local.conf"
+  notify:
+    - reload apache2
+
+- name: "lien symbolique pour activer le site vhost"
+  file:
+    src: /etc/apache2/sites-available/{{ item }}
+    dest: /etc/apache2/sites-enabled/{{ item }}
+    state: link
+  with_items:
+    - "app1.local.conf"
+  notify:
+    - reload apache2
+
+

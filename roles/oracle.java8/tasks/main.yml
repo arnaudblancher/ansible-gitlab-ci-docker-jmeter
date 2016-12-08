@@ -1,0 +1,37 @@
+---
+
+- name: "install apt-add-repository"
+  apt: name=software-properties-common state=present
+  when: "ansible_lsb.id == 'Ubuntu'"
+
+- name: "add oracle java repository"
+  apt_repository: repo='ppa:webupd8team/java' filename='java-oracle'
+  when: "ansible_lsb.id == 'Ubuntu'"
+
+- name: "accept java8 license"
+  debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+  when: "ansible_lsb.id == 'Ubuntu'"
+
+- name: "install ca-certificates and oracle java8"
+  apt: name={{ item }} state=present allow_unauthenticated=true
+  with_items:
+    - ca-certificates
+    - oracle-java8-installer
+    - oracle-java8-set-default
+  when: "ansible_lsb.id == 'Ubuntu'"
+
+
+- name: "install openjdk-8-jre"
+  apt: name={{ item }} state=present allow_unauthenticated=true
+  with_items:
+    - openjdk-8-jre
+  when: "ansible_lsb.id == 'Debian'"
+
+- name: "java version check"
+  command: "java -version"
+  register: java_version_output
+  failed_when: java_version_output.stderr.find('java version "1.8') == -1
+  changed_when: False
+  when: "ansible_lsb.id == 'Ubuntu'"
+  tags: ["version-check", "java-version-check"]
+

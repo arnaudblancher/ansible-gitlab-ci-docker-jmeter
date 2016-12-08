@@ -1,0 +1,12 @@
+
+[www]
+tp3.dev-arnaud.toshiba.local
+
+[jmeter]
+localhost
+
+# le 'site' s'appellera 'sitelocal'
+[sitelocal]
+tp3.dev-arnaud.toshiba.local
+
+

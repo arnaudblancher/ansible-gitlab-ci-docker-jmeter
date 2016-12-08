@@ -1,0 +1,17 @@
+# variables relatives à app2 mais qui seront utilisé par le deployement jmeter
+
+---
+
+
+# jmeter
+# path shoud be relative to playbook
+jmeter_jmx_present:
+  "roles/app2/templates/{{jmeter_scenarii_dir}}/app2-test-get-slash.jmx": "app2-test-get-slash.jmx"
+#  "roles/app2/templates/{{jmeter_scenarii_dir}}/app2-test-get-slash-failed.jmx": "app2-test-get-slash-failed.jmx"
+#  "roles/app2/templates/{{jmeter_scenarii_dir}}/app2-test-get-slash-prop.jmx": "app2-test-get-slash-prop.jmx"
+# path must be absolute to jmeter server
+jmeter_jmx_absent:
+  "{{jmeter_scenarii_dir}}/app2-test-get-slash-FAKE.jmx": "0"
+
+
+
