@@ -23,7 +23,7 @@ La Big picture :
 
 La version taggée "ansible-meetup-paris-12-integration-continue" est le code source de la présentation du Meetup Ansible Paris #12 "Intégration continue / déploiement continu avec Ansible, docker jmeter et gitlab-ci".
 
-Le [pdf du meetup](https://github.com/arnaudblancher/ansible-meetup-paris-12-integration-continue-presentation-pdf) est l'explication de ce code.
+Le [pdf du meetup](https://github.com/arnaudblancher/ansible-meetup-paris-12-integration-continue-presentation-pdf/blob/master/ansible-meetup-paris-12-integration-continue-presentation-pdf.pdf) est l'explication de ce code.
 
 License
 -------
