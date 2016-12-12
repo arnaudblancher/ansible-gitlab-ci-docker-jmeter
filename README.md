@@ -2,7 +2,7 @@ Brief
 =====
 
 
-"Vous avez des playbooks ansible ?
+"Vous avez des playbooks Ansible ?
 
 Faisons un pas de plus vers de l'intégration continue / déploiement continu :
 
@@ -15,7 +15,8 @@ Faisons un pas de plus vers de l'intégration continue / déploiement continu :
 * automatisation de l'ensemble via gitlab-ci
 
 * déploiement automatique via gilab-ci et ansible"
---
+
+
 La Big picture :
 
 ![ci/cd big picture](./doc/ci.gif)
@@ -30,14 +31,14 @@ License
 GPLv3
 
 Authors Information
-------------------
+-------------------
 
 Arnaud Blancher
 
 [https://github.com/arnaudblancher/ansible-gitlab-ci-docker-jmeter](https://github.com/arnaudblancher/ansible-gitlab-ci-docker-jmeter)
 
 Contributions
-------------
+-------------
 
 Corrections, suggestions et amélioration sont les bienvenues
 
