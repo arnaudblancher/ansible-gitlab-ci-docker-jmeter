@@ -15,14 +15,14 @@ Faisons un pas de plus vers de l'intégration continue / déploiement continu :
 * automatisation de l'ensemble via gitlab-ci
 
 * déploiement automatique via gilab-ci et ansible"
-
+--
 La Big picture :
 
 ![ci/cd big picture](./doc/ci.gif)
 
 La version taggée "ansible-meetup-paris-12-integration-continue" est le code source de la présentation du Meetup Ansible Paris #12 "Intégration continue / déploiement continu avec Ansible, docker jmeter et gitlab-ci".
 
-Le pdf du meetup est l'explication de ce code.
+Le [pdf du meetup](https://github.com/arnaudblancher/ansible-meetup-paris-12-integration-continue-presentation-pdf) est l'explication de ce code.
 
 License
 -------
@@ -36,4 +36,8 @@ Arnaud Blancher
 
 [https://github.com/arnaudblancher/ansible-gitlab-ci-docker-jmeter](https://github.com/arnaudblancher/ansible-gitlab-ci-docker-jmeter)
 
+Contributions
+------------
+
+Corrections, suggestions et amélioration sont les bienvenues
 
