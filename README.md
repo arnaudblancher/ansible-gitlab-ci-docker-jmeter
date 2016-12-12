@@ -40,5 +40,5 @@ Arnaud Blancher
 Contributions
 -------------
 
-Corrections, suggestions et amélioration sont les bienvenues
+Corrections, suggestions et améliorations sont les bienvenues
 
