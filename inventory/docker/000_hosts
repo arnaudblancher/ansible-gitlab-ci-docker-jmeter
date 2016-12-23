@@ -1,12 +1,13 @@
 
-[jmeter]
-#ansible_tp_jmeter01 docker_provisionning_image="jmeter2.13"
-ansible_tp_jmeter01 docker_provisionning_image="ubuntu1404jmeter"
-#ansible_tp_jmeter01
 
 [www]
 ansible_tp_www01
 #ansible_tp_www02
+
+[jmeter]
+#ansible_tp_jmeter01 docker_provisionning_image="jmeter2.13"
+ansible_tp_jmeter01 docker_provisionning_image="ubuntu1404jmeter"
+#ansible_tp_jmeter01
 
 # le 'site' s'appellera 'sitelocal'
 [sitelocal]
