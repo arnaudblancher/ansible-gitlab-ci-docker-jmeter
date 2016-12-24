@@ -1,5 +1,5 @@
 ---
-image: arnaudblancher/docker-ubuntu14-ansible-docker:ansible_2.1-docker_1.11
+image: arnaudblancher/docker-ubuntu14-ansible-docker:ansible_2.2-docker_1.12
 
 # ordre des stages (construction de conteneur docker à chaque fois)
 stages:
