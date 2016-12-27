@@ -3,7 +3,7 @@
 #- name: "display variables"
 #  debug: var=vars
 
-- name: "host/dockerfile wanted/alises"
+- name: "host/dockerfile wanted/aliases"
   debug: msg="host {{item}} -> docker_provisionning_image {{ vars['hostvars'][item]['docker_provisionning_image']|d(0) or vars['hostvars'][item]['docker_provisionning_image']|d(0) or docker_provisionning_image }} / aliases {{ vars['docker_provisionning_aliases'][item]|d()}} " verbosity=2
   with_items: "{{hostvars}}"
 #  when: docker_provisionning_info == true
